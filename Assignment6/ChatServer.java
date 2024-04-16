@@ -30,6 +30,7 @@ public class ChatServer {
 
     public boolean sendMessage(Message message){
         User sender = message.getSender();
+        boolean success = true;
         ArrayList<User> recipients = message.getRecipients();
         for(User recipient: recipients){
             if(registeredUsers.contains(recipient)){
@@ -41,7 +42,6 @@ public class ChatServer {
                         + message.getMessageContent()
                     );
                     recipient.receiveMessage(message);
-                    return true;
                 }
                 else{
                     System.out.println(
@@ -49,7 +49,7 @@ public class ChatServer {
                         + sender.getUserName() + " to "
                         + recipient.getUserName() + "."
                     );
-                    return false;
+                    success =  false;
                 }
             }
             else{
@@ -58,10 +58,11 @@ public class ChatServer {
                     + sender.getUserName() + " to "
                     + recipient.getUserName() + "."
                 );
-                return false;
+                success =  false;
             }
         }
-        return false;
+        return success;
+
     }
 
     public void blockUser(User blocker, User blocked){

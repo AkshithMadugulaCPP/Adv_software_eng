@@ -51,7 +51,11 @@ public class Message{
     public String toString(){
         String recipientNames = "";
         for(User recipient: recipients){
-            recipientNames += recipient.getUserName();
+            if (recipientNames.equals("")){
+                recipientNames += recipient.getUserName();
+            }
+            else {
+            recipientNames = recipientNames + ", " + recipient.getUserName();}
         }
         return "Message from " + sender.getUserName() 
             + " at " + this.timestamp 

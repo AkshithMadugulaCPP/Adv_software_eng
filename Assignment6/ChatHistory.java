@@ -17,19 +17,28 @@ public class ChatHistory implements IterableByUser{
 
     public void removeLastSentMessageFromHistory(User user){
         Message lastSentMessage;
+        Boolean deleted = false;
         for(int i = this.history.size() - 1; i >= 0; i--){
-            lastSentMessage = this.history.get(i);
-            if(lastSentMessage.getSender() == user){
-                this.history.remove(lastSentMessage);
+            if (deleted){
                 break;
             }
-            for(User recipient: lastSentMessage.getRecipients()){
-                ArrayList<Message> recipientHistory = recipient.getChatHistory().getHistory();
-                Message lastReceivedMessage;
-                for(int j = recipientHistory.size() - 1; j >= 0; j--){
-                    lastReceivedMessage = recipientHistory.get(j);
-                    if(lastReceivedMessage.getSender() == user){
-                        recipientHistory.remove(lastReceivedMessage);
+            else{
+                lastSentMessage = this.history.get(i);
+                if(lastSentMessage.getSender() == user){
+                    this.history.remove(lastSentMessage);
+                    user.setLastMessageSent("");
+                    this.updateLastSentMessage(user);
+                    deleted = true;
+                }
+                for(User recipient: lastSentMessage.getRecipients()){
+                    ArrayList<Message> recipientHistory = recipient.getChatHistory().getHistory();
+                    Message lastReceivedMessage;
+                    for(int j = recipientHistory.size() - 1; j >= 0; j--){
+                        lastReceivedMessage = recipientHistory.get(j);
+                        if(lastReceivedMessage.getSender() == user){
+                            recipientHistory.remove(lastReceivedMessage);
+                            break;
+                        }
                     }
                 }
             }
@@ -44,5 +53,14 @@ public class ChatHistory implements IterableByUser{
     public Iterator iterator(User userToSearchWith){
         return new SearchMessagesByUser(userToSearchWith);
     }
-    
+
+    public void updateLastSentMessage(User user){
+        Message lastSentMessage;
+        for(int i = this.history.size() - 1; i >= 0; i--) {
+            lastSentMessage = this.history.get(i);
+            if(lastSentMessage.getSender() == user){
+                user.setLastMessageSent(lastSentMessage.getTimestamp() + "       " + lastSentMessage.getMessageContent());
+            }
+        }
+    }
 }

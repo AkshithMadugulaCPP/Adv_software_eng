@@ -1,7 +1,10 @@
 package Assignment6;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class User implements IterableByUser{
 
@@ -31,8 +34,14 @@ public class User implements IterableByUser{
         return this.lastMessageSent;
     }
 
-    public void send(Message message){
+    public void setLastMessageSent(String message){
+        this.lastMessageSent = message;
+    }
+
+    public void send(ArrayList<User> recipients, String content){
         // Sent messages are automatically saved to the chat history
+        Message message = new Message(this, recipients, content);
+        this.saveLastMessageSent(message);
         if(this.mediator.sendMessage(message)){
             this.chatHistory.addMessageToHistory(message);
             this.lastMessageSent = message.getTimestamp() + "       " + message.getMessageContent();
