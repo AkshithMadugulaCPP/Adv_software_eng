@@ -9,9 +9,9 @@ public abstract class SnackDispenseHandler {
         this.next = next;
     }
 
-    public void dispenseSnack(Snack snack){
+    public void dispenseSnack(Snack snack, int quantity){
         if(next != null){
-            next.dispenseSnack(snack);
+            next.dispenseSnack(snack, quantity);
         }
     }
 }

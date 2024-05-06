@@ -13,21 +13,23 @@ public class DispenseSnackState extends SelectSnackState {
         System.out.println("Vending machine in [DISPENSE SNACK STATE]");
         int quantity = vendingMachine.getSelectedSnack().getQuantity();
         double insertedMoney = vendingMachine.getInsertedMoney();
-        double price = vendingMachine.getSelectedSnack().getPrice();
-        if(quantity - 1 >= 0){
+        int requiredQuantity = vendingMachine.getQuantity();
+        double price = vendingMachine.getSelectedSnack().getPrice() * requiredQuantity;
+        if( quantity >= requiredQuantity){
             System.out.println("Enough quantity, dispensing snack.");
-            vendingMachine.getSnackDispenseHandler().dispenseSnack(vendingMachine.getSelectedSnack());
+            vendingMachine.getSnackDispenseHandler().dispenseSnack(vendingMachine.getSelectedSnack(), requiredQuantity);
             if(insertedMoney > price){
                 System.out.println("Transitioning to idle state.");
                 System.out.println("Returning change $" + (insertedMoney - price));
             }
         }
         else{
-            System.out.println("No more quantity, transitioning to idle state.");
+            System.out.println("Not enough quantity, requested " + requiredQuantity +", Current stock "+ quantity+".  Transitioning to idle state.");
             System.out.println("Returning $" + insertedMoney);
         }
         vendingMachine.setStateOfVendingMachine(new IdleState());
         vendingMachine.setInsertedMoney(0.0);
+        vendingMachine.setQuantity(0);
         vendingMachine.setSelectedSnack(null);
     }
     

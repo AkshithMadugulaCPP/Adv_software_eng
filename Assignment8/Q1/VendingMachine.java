@@ -6,7 +6,8 @@ import Assignment8.Q1.SnacksDispenseHandler.SnackDispenseHandler;
 import java.util.ArrayList;
 
 public class VendingMachine {
-    
+
+    private int quantity;
     private StateOfVendingMachine stateOfVendingMachine;
     private Snack selectedSnack;
     private double insertedMoney;
@@ -19,6 +20,7 @@ public class VendingMachine {
         this.insertedMoney = 0.0;
         this.snackDispenseHandler = snackDispenseHandler;
         this.snacks = snacks;
+        this.quantity = 0;
     }
 
     public StateOfVendingMachine getStateOfVendingMachine(){
@@ -35,6 +37,14 @@ public class VendingMachine {
 
     public void setSelectedSnack(Snack selectedSnack){
         this.selectedSnack = selectedSnack;
+    }
+
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
+
+    public int getQuantity(){
+        return this.quantity;
     }
 
     public double getInsertedMoney(){
@@ -67,6 +77,13 @@ public class VendingMachine {
 
     public void selectSnack(Snack snack){
         this.setSelectedSnack(snack);
+        this.setQuantity(1);
+        getStateOfVendingMachine().selectSnack(this);
+    }
+
+    public void selectSnack(Snack snack, int quantity){
+        this.setSelectedSnack(snack);
+        this.setQuantity(quantity);
         getStateOfVendingMachine().selectSnack(this);
     }
 

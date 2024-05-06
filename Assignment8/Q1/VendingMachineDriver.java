@@ -11,7 +11,7 @@ public class VendingMachineDriver {
 
         // Create driver with 6 different snacks -> Coke, Pepsi, Cheetos, Doritos, KitKat, and Snickers.
         Snack kitKat = new Snack("KitKat", 1.00, 5);
-        Snack snickers = new Snack("Snickers", 1.50, 1);
+        Snack snickers = new Snack("Snickers", 1.50, 3);
         Snack cheetos = new Snack("Cheetos", 2.00, 5);
         Snack doritos = new Snack("Doritos", 2.50, 5);
         Snack coke = new Snack("Coke", 3.00, 5);
@@ -28,8 +28,8 @@ public class VendingMachineDriver {
                                                     new Snickers(null))))));
         VendingMachine vendingMachine = new VendingMachine(snackDispenseHandler, snacks);
 
-        System.out.println("\n#############################################");
-        System.out.println("\n# CASE 1:- where is not enough money:");
+        System.out.println("#############################################");
+        System.out.println("# CASE 1:- where is not enough money:");
 
         vendingMachine.idle();
         vendingMachine.selectSnack(doritos);
@@ -37,8 +37,8 @@ public class VendingMachineDriver {
         vendingMachine.dispenseSnack();
         System.out.println(vendingMachine);
 
-        System.out.println("\n#############################################");
-        System.out.println("\n# CASE 2:- where there is enough money and quantity:");
+        System.out.println("#############################################");
+        System.out.println("# CASE 2:- where there is enough money and quantity:");
 
         vendingMachine.idle();
         vendingMachine.selectSnack(pepsi);
@@ -48,8 +48,17 @@ public class VendingMachineDriver {
 
 
 
-        System.out.println("\n#############################################");
-        System.out.println("\n# CASE 3:- where quantity hits 0 with snickers:");
+        System.out.println("#############################################");
+        System.out.println("# CASE 3:- where quantity hits 0 with snickers:");
+
+        vendingMachine.idle();
+        vendingMachine.selectSnack(snickers,3);
+        vendingMachine.insertMoney(5.00);
+        vendingMachine.dispenseSnack();
+        System.out.println(vendingMachine);
+
+        System.out.println("#############################################");
+        System.out.println("# CASE 4:- Where there is no more quantity:");
 
         vendingMachine.idle();
         vendingMachine.selectSnack(snickers);
@@ -57,15 +66,17 @@ public class VendingMachineDriver {
         vendingMachine.dispenseSnack();
         System.out.println(vendingMachine);
 
-        System.out.println("\n#############################################");
-        System.out.println("\n# CASE 4:- Where there is no more quantity:");
+
+        System.out.println("#############################################");
+        System.out.println("# CASE 5:- Where there is not enough quantity:");
 
         vendingMachine.idle();
-        vendingMachine.selectSnack(snickers);
-        vendingMachine.insertMoney(4.00);
+        vendingMachine.selectSnack(pepsi,6);
+        vendingMachine.insertMoney(40.00);
         vendingMachine.dispenseSnack();
         System.out.println(vendingMachine);
-        
+
+        System.out.println("#############################################");
     }
 
 }

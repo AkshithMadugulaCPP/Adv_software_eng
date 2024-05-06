@@ -8,13 +8,13 @@ public class KitKat extends SnackDispenseHandler {
         super(next);
     }
 
-    public void dispenseSnack(Snack snack){
+    public void dispenseSnack(Snack snack,int quantity){
         if(snack.getName() == "KitKat"){
             System.out.println("Dispensing KitKat.");
-            snack.setQuantity(snack.getQuantity() - 1);
+            snack.setQuantity(snack.getQuantity() - quantity);
         }
         else{
-            super.dispenseSnack(snack);
+            super.dispenseSnack(snack, quantity);
         }
     }
 }

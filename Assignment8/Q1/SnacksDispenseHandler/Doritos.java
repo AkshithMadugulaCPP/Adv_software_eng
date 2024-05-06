@@ -8,13 +8,13 @@ public class Doritos extends SnackDispenseHandler {
         super(next);
     }
 
-    public void dispenseSnack(Snack snack){
+    public void dispenseSnack(Snack snack,int quantity){
         if(snack.getName() == "Doritos"){
             System.out.println("Dispensing Doritos.");
-            snack.setQuantity(snack.getQuantity() - 1);
+            snack.setQuantity(snack.getQuantity() - quantity);
         }
         else{
-            super.dispenseSnack(snack);
+            super.dispenseSnack(snack, quantity);
         }
     }
 }
